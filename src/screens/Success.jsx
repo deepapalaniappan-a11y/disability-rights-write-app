@@ -53,7 +53,7 @@ export default function SuccessScreen({ author, title, postId, postUrl, offline,
                         )}
                 
                         <button onClick={onNewStory} style={{ width: '100%', padding: '16px', fontSize: '1.05rem', fontWeight: 600, fontFamily: "'DM Sans', sans-serif", background: adminEditUrl ? 'none' : '#1a1a1a', color: adminEditUrl ? '#333' : '#fff', border: adminEditUrl ? '1px solid #ddd' : 'none', borderRadius: 10, cursor: 'pointer', marginBottom: 12, minHeight: 52, boxSizing: 'border-box' }}>
-                                  ✍️ Write Another Story
+                                  &#9997; Write Another Story
                         </button>button>
                 
                         <button onClick={onLogout} style={{ width: '100%', padding: '14px', fontSize: '0.95rem', fontWeight: 500, fontFamily: "'DM Sans', sans-serif", background: 'none', color: '#666', border: '1px solid #ddd', borderRadius: 10, cursor: 'pointer', minHeight: 48, boxSizing: 'border-box' }}>
