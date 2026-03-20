@@ -25,7 +25,7 @@ export default function LoginScreen({ onLogin, isLoading, error: externalError }
       >
         {/* App Identity */}
         <div style={{ textAlign: 'center', marginBottom: 32 }}>
-          <div style={{ fontSize: 40, marginBottom: 8 }} aria-hidden="true">✍️</div>
+          <div style={{ fontSize: 40, marginBottom: 8 }} aria-hidden="true">&#9997;</div>
           <h1 style={{
             fontFamily: "'Source Serif 4', 'Georgia', serif",
             fontSize: '1.6rem',
