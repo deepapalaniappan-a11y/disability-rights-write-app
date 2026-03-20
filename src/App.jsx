@@ -1,4 +1,4 @@
-✍️…import { useState, useEffect, useCallback } from 'react';
+import { useState, useEffect, useCallback } from 'react';
 import LoginScreen from './screens/Login.jsx';
 import WriteScreen from './screens/Write.jsx';
 import SuccessScreen from './screens/Success.jsx';
@@ -70,7 +70,6 @@ export default function App() {
           setToken(callbackToken);
           setAuthor(user);
           setScreen('write');
-          // Sync any offline drafts
           syncOfflineDrafts(callbackToken);
           return;
         } catch (err) {
@@ -88,14 +87,12 @@ export default function App() {
         setToken(storedToken);
         setAuthor(storedUser);
         setScreen('write');
-        // Verify token is still valid (in background)
         try {
           const freshUser = await fetchCurrentUser(storedToken);
           saveUserInfo(freshUser);
           setAuthor(freshUser);
           syncOfflineDrafts(storedToken);
         } catch {
-          // Token expired — force re-login
           clearAuth();
           setToken(null);
           setAuthor(null);
@@ -155,7 +152,7 @@ export default function App() {
         flexDirection: 'column',
         gap: 16
       }}>
-        <div style={{ fontSize: 40 }} aria-hidden="true">✍️</div>
+        <div style={{ fontSize: 40 }} aria-hidden="true">&#9997;</div>
         <p style={{
           fontFamily: "'DM Sans', sans-serif",
           fontSize: '1rem',
