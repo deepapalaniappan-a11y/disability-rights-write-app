@@ -2,21 +2,14 @@
  * WordPress.com Post Creation
  * Creates draft posts via the REST API
  */
-
 import { SITE_ID, getAuthHeaders } from './auth.js';
 import { mediaToBlock } from './media.js';
 
 const POST_ENDPOINT = `https://public-api.wordpress.com/rest/v1.1/sites/${SITE_ID}/posts/new`;
 
 /**
- * Map region/language values to WordPress category/tag names
+ * Map language values to WordPress tag names
  */
-const REGION_CATEGORIES = {
-  'east-africa': 'East Africa',
-  'southern-africa': 'Southern Africa',
-  'south-asia': 'South Asia'
-};
-
 const LANGUAGE_TAGS = {
   english: 'English',
   hindi: 'Hindi',
@@ -43,13 +36,11 @@ function storyToHtml(text) {
  */
 function buildPostContent(storyText, uploadedMedia = []) {
   let content = storyToHtml(storyText);
-
   // Append media blocks at end (images as wp:image, videos as wp:video)
   if (uploadedMedia.length > 0) {
     content += '\n\n';
     content += uploadedMedia.map(m => mediaToBlock(m)).join('\n\n');
   }
-
   return content;
 }
 
@@ -60,13 +51,13 @@ function buildPostContent(storyText, uploadedMedia = []) {
  * @param {string} params.story - Plain text story content
  * @param {Array} params.media - Array of uploaded media objects
  * @param {number|null} params.featuredImageId - Media ID for featured image
- * @param {string} params.region - Region slug (east-africa, southern-africa, south-asia, or '')
+ * @param {string} params.country - Country name typed by the contributor (e.g. "Kenya")
  * @param {string} params.language - Language slug (english, hindi, tamil, or '')
  * @param {string} token - OAuth access token
  * @returns {Object} { id, url, title, status }
  */
 export async function createDraftPost(
-  { title, story, media = [], featuredImageId = null, region = '', language = '' },
+  { title, story, media = [], featuredImageId = null, country = '', language = '' },
   token
 ) {
   const content = buildPostContent(story, media);
@@ -83,14 +74,16 @@ export async function createDraftPost(
     postPayload.featured_image = featuredImageId;
   }
 
-  // Add region as category
-  if (region && REGION_CATEGORIES[region]) {
-    postPayload.categories = REGION_CATEGORIES[region];
-  }
-
-  // Add language as tag
+  // Build tags array — language and country both become plain tags
+  const tags = [];
   if (language && LANGUAGE_TAGS[language]) {
-    postPayload.tags = LANGUAGE_TAGS[language];
+    tags.push(LANGUAGE_TAGS[language]);
+  }
+  if (country && country.trim()) {
+    tags.push(country.trim());
+  }
+  if (tags.length > 0) {
+    postPayload.tags = tags.join(',');
   }
 
   const res = await fetch(POST_ENDPOINT, {
@@ -108,7 +101,6 @@ export async function createDraftPost(
   }
 
   const data = await res.json();
-
   return {
     id: data.ID,
     url: data.URL,
