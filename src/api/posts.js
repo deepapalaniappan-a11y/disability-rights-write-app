@@ -8,15 +8,6 @@ import { mediaToBlock } from './media.js';
 const POST_ENDPOINT = `https://public-api.wordpress.com/rest/v1.1/sites/${SITE_ID}/posts/new`;
 
 /**
- * Map language values to WordPress tag names
- */
-const LANGUAGE_TAGS = {
-  english: 'English',
-  hindi: 'Hindi',
-  tamil: 'Tamil'
-};
-
-/**
  * Convert plain text story content to HTML paragraphs
  * Preserves line breaks as paragraph boundaries
  */
@@ -76,8 +67,8 @@ export async function createDraftPost(
 
   // Build tags array — language and country both become plain tags
   const tags = [];
-  if (language && LANGUAGE_TAGS[language]) {
-    tags.push(LANGUAGE_TAGS[language]);
+  if (language && language.trim()) {
+    tags.push(language.trim());
   }
   if (country && country.trim()) {
     tags.push(country.trim());
