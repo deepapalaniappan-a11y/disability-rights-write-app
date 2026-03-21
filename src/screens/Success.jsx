@@ -29,14 +29,14 @@ export default function SuccessScreen({ author, title, postId, postUrl, offline,
                                         ✅ Story saved on your device<br />
                                         ⏳ Will publish automatically when connected<br />
                                         💡 Keep the app open or check back later
-                        </>>
+                        </>
                       ) : (
                         <>
                                         ✅ Submitted with your name as author<br />
                                         ✅ Images and videos uploaded to media library<br />
                                         ✅ Region and language tags pre-set<br />
                                         ✅ Coordinator can review, edit and publish
-                        </>>
+                        </>
                       )}
                                   </p>
                         </div>
