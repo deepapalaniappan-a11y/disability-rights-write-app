@@ -318,13 +318,15 @@ export default function WriteScreen({ author, token, onPublish, onLogout }) {
                         </div>
                         <div style={{ flex: '1 1 200px' }}>
                             <label htmlFor="story-language" style={{ display: 'block', fontFamily: "'DM Sans', sans-serif", fontSize: '0.8rem', fontWeight: 600, color: '#555', marginBottom: 4 }}>Story Language</label>
-                            <select id="story-language" value={language} onChange={(e) => setLanguage(e.target.value)} style={{ width: '100%', padding: '10px 12px', fontFamily: "'DM Sans', sans-serif", fontSize: '0.9rem', border: '1px solid #ddd', borderRadius: 8, background: '#fff', color: '#333', minHeight: 44, appearance: 'auto' }}>
-                                <option value="">Select language…</option>
-                                <option value="english">English</option>
-                                <option value="hindi">Hindi</option>
-                                <option value="tamil">Tamil</option>
-                                <option value="other">Other</option>
-                            </select>
+                            <input
+                                id="story-language"
+                                type="text"
+                                value={language}
+                                onChange={(e) => setLanguage(e.target.value)}
+                                placeholder="e.g. English, Hindi, Swahili…"
+                                aria-label="Language your story is written in"
+                                style={{ width: '100%', padding: '10px 12px', fontFamily: "'DM Sans', sans-serif", fontSize: '0.9rem', border: '1px solid #ddd', borderRadius: 8, background: '#fff', color: '#333', minHeight: 44, boxSizing: 'border-box' }}
+                            />
                         </div>
                     </div>
                 </div>
